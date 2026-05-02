@@ -1,22 +1,42 @@
 import React from 'react';
+import { CheckSquare, Calendar, Clock, RotateCcw } from 'lucide-react';
 
-export default function TaskCard({ task }) {
+export default function TaskCard({ task, onClick }) {
   return (
-    <div className="task-card glass-card">
-      <div className="task-labels">
+    <div className="task-card" onClick={onClick}>
+      <div className="task-title">{task.title}</div>
+      
+      <div className="task-meta-top">
         {task.label && (
           <span 
             className="task-label" 
-            style={{ backgroundColor: task.label.color }}
+            style={{ backgroundColor: task.label.color, color: 'white' }}
           >
             {task.label.name}
           </span>
         )}
+        
+        {task.recurrence && task.recurrence !== 'none' && (
+          <div className="task-recurrence-icon" title={`Repeats ${task.recurrence}`}>
+            <RotateCcw size={12} color="var(--text-secondary)" />
+          </div>
+        )}
       </div>
-      <h3 className="task-title">{task.title}</h3>
-      {task.description && (
-        <p className="task-desc">{task.description}</p>
-      )}
+
+      <div className="task-details">
+        {task.deadline && (
+          <div className="task-detail-item" title="Deadline">
+            <Calendar size={12} />
+            <span>{task.deadline}</span>
+          </div>
+        )}
+        {task.time && (
+          <div className="task-detail-item" title="Time Estimate">
+            <Clock size={12} />
+            <span>{task.time}</span>
+          </div>
+        )}
+      </div>
     </div>
   );
 }
