@@ -9,7 +9,7 @@ const COLUMNS = [
   { id: 'done', title: 'Done', color: 'var(--status-done)' }
 ];
 
-export default function Board({ tasks, setTasks }) {
+export default function Board({ tasks, setTasks, onTaskClick }) {
   const onDragEnd = (result) => {
     const { source, destination, draggableId } = result;
 
@@ -43,10 +43,7 @@ export default function Board({ tasks, setTasks }) {
           return (
             <div key={column.id} className="board-column">
               <div className="column-header">
-                <div className="column-header-left">
-                  <span className="column-dot" style={{ backgroundColor: column.color }}></span>
-                  <h2>{column.title}</h2>
-                </div>
+                <h2>{column.title}</h2>
                 <span className="task-count">{columnTasks.length}</span>
               </div>
               
@@ -69,7 +66,7 @@ export default function Board({ tasks, setTasks }) {
                             }}
                             className={snapshot.isDragging ? 'dragging-card' : ''}
                           >
-                            <TaskCard task={task} />
+                            <TaskCard task={task} onClick={() => onTaskClick(task)} />
                           </div>
                         )}
                       </Draggable>
