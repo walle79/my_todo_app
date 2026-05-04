@@ -239,7 +239,42 @@ input:focus, textarea:focus, select:focus {
   color: var(--text-primary);
   line-height: 1.4;
   margin-bottom: 0.25rem;
+  flex: 1;
 }
+
+.task-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+.task-clear-btn {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  border: 1px solid var(--status-done);
+  color: var(--status-done);
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+  padding: 0;
+}
+
+.task-clear-btn:hover {
+  background: var(--status-done);
+  color: white;
+  transform: scale(1.1);
+  box-shadow: 0 2px 4px rgba(0, 135, 90, 0.2);
+}
+
+.task-clear-btn:active {
+  transform: scale(0.95);
+}
+
 
 .task-meta-top {
   display: flex;

@@ -9,6 +9,7 @@ import {
   setDoc, 
   doc, 
   addDoc, 
+  deleteDoc,
   query, 
   orderBy 
 } from "firebase/firestore";
@@ -43,6 +44,14 @@ function App() {
       setIsModalOpen(false);
     } catch (error) {
       console.error("Error saving task:", error);
+    }
+  };
+
+  const handleDeleteTask = async (taskId) => {
+    try {
+      await deleteDoc(doc(db, "tasks", taskId));
+    } catch (error) {
+      console.error("Error deleting task:", error);
     }
   };
 
@@ -129,7 +138,12 @@ function App() {
       </header>
       
       <main className="app-content">
-        <Board tasks={tasks} setTasks={updateTasksInFirebase} onTaskClick={handleTaskClick} />
+        <Board 
+          tasks={tasks} 
+          setTasks={updateTasksInFirebase} 
+          onTaskClick={handleTaskClick}
+          onDeleteTask={handleDeleteTask}
+        />
       </main>
 
       {isModalOpen && (
@@ -142,6 +156,7 @@ function App() {
     </div>
   );
 }
+
 
 export default App;
 
