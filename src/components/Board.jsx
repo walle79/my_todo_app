@@ -9,7 +9,7 @@ const COLUMNS = [
   { id: 'done', title: 'Done', color: 'var(--status-done)' }
 ];
 
-export default function Board({ tasks, setTasks, onTaskClick }) {
+export default function Board({ tasks, setTasks, onTaskClick, onDeleteTask }) {
   const onDragEnd = (result) => {
     const { source, destination, draggableId } = result;
 
@@ -66,7 +66,11 @@ export default function Board({ tasks, setTasks, onTaskClick }) {
                             }}
                             className={snapshot.isDragging ? 'dragging-card' : ''}
                           >
-                            <TaskCard task={task} onClick={() => onTaskClick(task)} />
+                            <TaskCard 
+                              task={task} 
+                              onClick={() => onTaskClick(task)} 
+                              onDelete={() => onDeleteTask(task.id)}
+                            />
                           </div>
                         )}
                       </Draggable>
